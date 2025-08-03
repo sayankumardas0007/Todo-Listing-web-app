@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import NavBar from './components/navbar'
+import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import { v4 as uuidv4 } from 'uuid';
 import { FaEdit } from "react-icons/fa";

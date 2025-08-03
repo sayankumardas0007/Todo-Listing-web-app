@@ -32,8 +32,8 @@ function App() {
   }, [])
   
 
-  const saveToLS =() => {
-    localStorage.setItem("toDos", JSON.stringify(toDos))
+  const saveToLS =(x) => {
+    localStorage.setItem("toDos", JSON.stringify(x))
   }
 
 
@@ -63,7 +63,7 @@ function App() {
 
   const handleAdd = () => {
     setToDos([...toDos, {id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }])
-    saveToLS();
+    saveToLS([...toDos, {id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }]);
     setToDo("")
     setToDoDescription("")
     setToDoDate("")
@@ -78,7 +78,7 @@ function App() {
     let newToDos = [...toDos];
     newToDos[index].isCompleted = !newToDos[index].isCompleted;
     setToDos(newToDos);
-    saveToLS();
+    saveToLS(newToDos);
   }
   
 
@@ -94,7 +94,7 @@ function App() {
       return item.id != id;
     })
     setToDos(newToDos)
-    saveToLS();
+    saveToLS(newToDos);
     window.scrollTo(0,90)
   }
 
@@ -103,7 +103,7 @@ function App() {
       return item.id != id;
     })
     setToDos(newToDos)
-    saveToLS();
+    saveToLS(newToDos);
   }
 
 

@@ -8,7 +8,7 @@ const NavBar = () => {
             </div>
             <ul className='flex justify-center items-center gap-8'>
                 <li className='cursor-pointer hover:font-bold transition-all'>Home</li>
-                <li className='cursor-pointer hover:font-bold transition-all'>Your Tasks</li>
+                <li className='cursor-pointer hover:font-bold transition-all'>About</li>
             </ul>
         </nav>
     )

@@ -25,14 +25,14 @@ function App() {
 
   useEffect(() => {
     let toDossStrings = localStorage.getItem("toDos");
-    if(toDossStrings){
+    if (toDossStrings) {
       let toDoss = JSON.parse(localStorage.getItem("toDos"))
       setToDos(toDoss);
     }
   }, [])
-  
 
-  const saveToLS =(x) => {
+
+  const saveToLS = (x) => {
     localStorage.setItem("toDos", JSON.stringify(x))
   }
 
@@ -62,12 +62,16 @@ function App() {
   }
 
   const handleAdd = () => {
-    setToDos([...toDos, {id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }])
-    saveToLS([...toDos, {id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }]);
-    setToDo("")
-    setToDoDescription("")
-    setToDoDate("")
-    setToDoPriority("Low")
+    if (toDo.length <= 3) {
+      alert("Length of Task Name Must be greater than 3");
+    } else {
+      setToDos([...toDos, { id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }])
+      saveToLS([...toDos, { id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }]);
+      setToDo("")
+      setToDoDescription("")
+      setToDoDate("")
+      setToDoPriority("Low")
+    }
   }
 
   const handleCheckbox = (e) => {
@@ -80,10 +84,10 @@ function App() {
     setToDos(newToDos);
     saveToLS(newToDos);
   }
-  
+
 
   const handleEdit = (e, id) => {
-    let t = toDos.filter(i=>i.id ===id)
+    let t = toDos.filter(i => i.id === id)
     setToDo(t[0].toDo)
     setToDoDescription(t[0].toDoDescription)
     setToDoDate(t[0].toDoDate)
@@ -95,7 +99,7 @@ function App() {
     })
     setToDos(newToDos)
     saveToLS(newToDos);
-    window.scrollTo(0,90)
+    window.scrollTo(0, 90)
   }
 
   const handleDelete = (e, id) => {
@@ -153,7 +157,7 @@ function App() {
               </div>
             </div>)
           }
-          <button disabled={toDo.length<=3} className="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer my-4" onClick={handleAdd}>Add</button>
+          <button className="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer my-4" onClick={handleAdd}>Add</button>
         </div>
 
         <div className='flex flex-col w-full gap-3'>
@@ -186,14 +190,14 @@ function App() {
           <div className='flex flex-col gap-5'>
             {toDos.length === 0 && <div className='m-5'>No To-Do's to display.</div>}
             {toDos.map(item => {
-              return ((status === "All" && priority === "All") || (status === "All" && priority === item.toDoPriority) || (status === (item.isCompleted?"Completed":"Active") && priority === "All") || (status === (item.isCompleted?"Completed":"Active") && priority === item.toDoPriority)) && (
-                <div key={item.id} className={'flex rounded-xl p-4 justify-between ' + ((item.toDoPriority==="Low")?'bg-teal-800':((item.toDoPriority==="Medium")?'bg-yellow-800':'bg-rose-800'))}>
+              return ((status === "All" && priority === "All") || (status === "All" && priority === item.toDoPriority) || (status === (item.isCompleted ? "Completed" : "Active") && priority === "All") || (status === (item.isCompleted ? "Completed" : "Active") && priority === item.toDoPriority)) && (
+                <div key={item.id} className={'flex rounded-xl p-4 justify-between ' + ((item.toDoPriority === "Low") ? 'bg-teal-800' : ((item.toDoPriority === "Medium") ? 'bg-yellow-800' : 'bg-rose-800'))}>
                   <div className='flex justify-center items-center gap-5'>
                     <div>
                       <input name={item.id} onChange={handleCheckbox} type="checkbox" checked={item.isCompleted} />
                     </div>
                     <div>
-                      <h2 className={'font-bold text-xl ' + ((item.toDoPriority==="Low")?'text-teal-400':((item.toDoPriority==="Medium")?'text-yellow-400':'text-rose-400'))}>{item.toDoPriority}</h2>
+                      <h2 className={'font-bold text-xl ' + ((item.toDoPriority === "Low") ? 'text-teal-400' : ((item.toDoPriority === "Medium") ? 'text-yellow-400' : 'text-rose-400'))}>{item.toDoPriority}</h2>
                       <h3 className={'font-bold' + (item.isCompleted ? ' line-through' : '')}>{item.toDo}</h3>
                       <div>
                         <p className={'' + (item.isCompleted ? ' line-through' : '')}>{item.toDoDescription}</p>
@@ -202,8 +206,8 @@ function App() {
                     </div>
                   </div>
                   <div className='flex gap-3'>
-                    <button onClick={(e) => {handleEdit(e, item.id)}} className='cursor-pointer'><FaEdit /></button>
-                    <button onClick={(e) => {handleDelete(e, item.id)}} className='cursor-pointer'><MdDelete /></button>
+                    <button onClick={(e) => { handleEdit(e, item.id) }} className='cursor-pointer'><FaEdit /></button>
+                    <button onClick={(e) => { handleDelete(e, item.id) }} className='cursor-pointer'><MdDelete /></button>
                   </div>
                 </div>
               )

@@ -65,8 +65,9 @@ function App() {
     if (toDo.length <= 3) {
       alert("Length of Task Name Must be greater than 3");
     } else {
-      setToDos([...toDos, { id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }])
-      saveToLS([...toDos, { id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }]);
+      let myObj = { id: uuidv4(), toDo, toDoDescription, toDoDate, toDoPriority, isCompleted: false }
+      setToDos([...toDos, myObj]);
+      saveToLS([...toDos, myObj]);
       setToDo("")
       setToDoDescription("")
       setToDoDate("")
@@ -103,11 +104,14 @@ function App() {
   }
 
   const handleDelete = (e, id) => {
-    let newToDos = toDos.filter(item => {
-      return item.id != id;
-    })
-    setToDos(newToDos)
-    saveToLS(newToDos);
+    let k = confirm("Are you sure you want to delete this.")
+    if(k){
+      let newToDos = toDos.filter(item => {
+        return item.id != id;
+      })
+      setToDos(newToDos)
+      saveToLS(newToDos);
+    }
   }
 
 
